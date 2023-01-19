@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState ,createContext} from "react";
+import List from "../common/List";
 import TodoItem from "./TodoItem";
+export const TodoListContex= createContext({});
 export default function TodoList({ todos, setTodos }) {
   const markAsCompleted = (taskId) => {
     const updatedTodos = todos.map((todo) => {
@@ -13,16 +15,8 @@ export default function TodoList({ todos, setTodos }) {
 
   return (
     <ul className="todoItems">
-      {todos.map((item) => {
-        return (
-          <TodoItem
-            key={item.id}
-            content={item.content}
-            id={item.id}
-            isCompleted={item.isCompleted}
-          />
-        );
-      })}
+      <List items={todos} Component={TodoItem}/>
+      <TodoListContex.Provider value={markAsCompleted}/>
     </ul>
   );
 }
